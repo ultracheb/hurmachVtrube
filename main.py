@@ -9,11 +9,8 @@ import pygame
 import random
 import blockModule
 import playerModule
+import constants
 
-# Define some colors
-BLACK    = (   0,   0,   0)
-WHITE    = ( 255, 255, 255)
-RED      = ( 255,   0,   0)
 
 # Initialize Pygame
 pygame.init()
@@ -32,7 +29,7 @@ all_sprites_list = pygame.sprite.Group()
 
 for i in range(50):
     # This represents a block
-    block = blockModule.Block(BLACK, 20, 15)
+    block = blockModule.Block(constants.BLACK, 20, 15)
 
     # Set a random location for the block
     block.rect.x = random.randrange(screen_width)
@@ -50,7 +47,7 @@ for i in range(50):
     all_sprites_list.add(block)
 
 # Create a red player block
-player = playerModule.Player(RED, 20, 15)
+player = playerModule.Player(constants.RED, 20, 15)
 all_sprites_list.add(player)
 
 #Loop until the user clicks the close button.
@@ -68,7 +65,7 @@ while not done:
             done = True # Flag that we are done so we exit this loop
 
     # Clear the screen
-    screen.fill(WHITE)
+    screen.fill(constants.WHITE)
 
     # Calls update() method on every sprite in the list
     all_sprites_list.update()
