@@ -1,8 +1,10 @@
+import random
+
 __author__ = 'Vladislove'
 
 import pygame
 
-class Block(pygame.sprite.Sprite):
+class Fluid(pygame.sprite.Sprite):
     """
     This class represents the ball
     It derives from the "Sprite" class in Pygame
@@ -31,6 +33,21 @@ class Block(pygame.sprite.Sprite):
         # Update the position of this object by setting the values
         # of rect.x and rect.y
         self.rect = self.image.get_rect()
+
+    def setPos(self, rangeX, rangeY):
+        self.rect.x = random.randrange(rangeX)
+        self.rect.y = random.randrange(rangeY)
+
+    def setChange(self, rangeXdown, rangeXup, rangeYdown, rangeYup):
+        self.change_x = random.randrange(rangeXdown, rangeXup)
+        self.change_y = random.randrange(rangeYdown, rangeYup)
+
+    def setBoundary(self, leftBoun, topBoun, rightBoun, downBow):
+        self.left_boundary = leftBoun
+        self.top_boundary = topBoun
+        self.right_boundary = rightBoun
+        self.bottom_boundary = downBow
+
 
     def update(self):
         """ Called each frame. """
