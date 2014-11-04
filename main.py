@@ -2,10 +2,7 @@ import pygame
 from screenModule import Screen
 
 pygame.init()
-
 screen = Screen()
-
-#Loop until the user clicks the close button.
 done = False
 
 # -------- Main Program Loop -----------
@@ -16,7 +13,6 @@ while not done:
 
     # Limit to 60 frames per second
     screen.redraw(60)
-
     # Go ahead and update the screen with what we've drawn.
     pygame.display.flip()
 

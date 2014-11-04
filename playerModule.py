@@ -1,9 +1,9 @@
 __author__ = 'Vladislove'
 
 import pygame
-import blockModule
+import fluidModule
 
-class Player(blockModule.Fluid):
+class Player(fluidModule.Fluid):
     """ The player class derives from Block, but overrides the 'update'
     functionality with new a movement function that will move the block
     with the mouse. """

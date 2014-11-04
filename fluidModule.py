@@ -54,8 +54,16 @@ class Fluid(pygame.sprite.Sprite):
         self.rect.x += self.change_x
         self.rect.y += self.change_y
 
-        if self.rect.right >= self.right_boundary or self.rect.left <= self.left_boundary:
+        if self.rect.right >= self.right_boundary:
             self.change_x *= -1
+            return True, True
+
+        if self.rect.left <= self.left_boundary:
+            self.change_x *= -1
+            return True, False
 
         if self.rect.bottom >= self.bottom_boundary or self.rect.top <= self.top_boundary:
             self.change_y *= -1
+            return False, False
+
+        return False, False
