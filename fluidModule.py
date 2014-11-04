@@ -1,4 +1,5 @@
 import random
+import math
 
 __author__ = 'Vladislove'
 
@@ -28,19 +29,34 @@ class Fluid(pygame.sprite.Sprite):
         self.image = pygame.Surface([width, height])
         self.image.fill(color)
 
-        # Fetch the rectangle object that has the dimensions of the image
-        # image.
-        # Update the position of this object by setting the values
-        # of rect.x and rect.y
         self.rect = self.image.get_rect()
+        self.setfirstmovemant()
 
     def setPos(self, rangeX, rangeY):
         self.rect.x = random.randrange(rangeX)
         self.rect.y = random.randrange(rangeY)
 
-    def setChange(self, rangeXdown, rangeXup, rangeYdown, rangeYup):
-        self.change_x = random.randrange(rangeXdown, rangeXup)
-        self.change_y = random.randrange(rangeYdown, rangeYup)
+    def randfloat(self):
+        return random.randrange(0, 1000) / 1000
+
+    def setfirstmovemant(self):
+        l = math.sqrt(self.randfloat())
+        sin0 = math.sqrt(1 - l*l)
+        phi = 2 * math.pi * self.randfloat()
+        m = sin0 * math.cos(phi)
+
+        self.change_x = l*10
+        self.change_y = m*10
+
+    def setmovement(self):
+        l = math.sqrt(self.randfloat())
+        sin0 = math.sqrt(1 - l*l)
+        phi = 2 * math.pi * self.randfloat()
+        m = sin0 * math.cos(phi)
+
+        self.change_x = m*10
+        self.change_y = l*10
+
 
     def setBoundary(self, leftBoun, topBoun, rightBoun, downBow):
         self.left_boundary = leftBoun
@@ -62,8 +78,14 @@ class Fluid(pygame.sprite.Sprite):
             self.change_x *= -1
             return True, False
 
-        if self.rect.bottom >= self.bottom_boundary or self.rect.top <= self.top_boundary:
+        if self.rect.bottom >= self.bottom_boundary:
+            self.setmovement()
             self.change_y *= -1
             return False, False
+
+        if self.rect.top <= self.top_boundary:
+            self.setmovement()
+            return False, False
+
 
         return False, False

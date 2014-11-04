@@ -15,7 +15,7 @@ class Screen:
 
     def __init__(self):
         self.simulation = Simulation()
-        self.simulation.generate(100)
+        self.simulation.generate()
         self.player = playerModule.Player(constants.RED, 20, 15)
         self.simulation.addSprite(self.player)
         self.clock = pygame.time.Clock()
