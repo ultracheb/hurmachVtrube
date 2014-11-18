@@ -8,7 +8,7 @@ class Simulation:
 
     screen_width = 0
     screen_height = 0
-    Limit = 1000
+    Limit = 100
     Number = 0
     N = 0
     Nt = 0
@@ -19,9 +19,9 @@ class Simulation:
     new_sprites_list = pygame.sprite.Group()
 
 
-    def __init__(self):
-        self.screen_width = 1000
-        self.screen_height = 500
+    def __init__(self, width, height):
+        self.screen_width = width
+        self.screen_height = height
 
     def generate(self):
         # for i in range(number):
@@ -30,8 +30,8 @@ class Simulation:
         fluid = fluidModule.Fluid(constants.WHITE, 1, 1)
 
         # Set a random location for the block
-        fluid.setPos(1, self.screen_height)
-        fluid.setBoundary(0, 0, self.screen_width, self.screen_height)
+        fluid.set_pos(self.screen_height)
+        fluid.set_boundary(0, 0, self.screen_width, self.screen_height)
 
         # Add the block to the list of objects
         self.fluid_list.add(fluid)

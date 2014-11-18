@@ -11,10 +11,12 @@ class Screen:
     simulation = 0
     clock = 0
     player = 0
-    screen = pygame.display.set_mode([1000, 500])
+    screen_x = 300
+    screen_y = 600
+    screen = pygame.display.set_mode([screen_x, screen_y])
 
     def __init__(self):
-        self.simulation = Simulation()
+        self.simulation = Simulation(self.screen_x, self.screen_y)
         self.simulation.generate()
         self.player = playerModule.Player(constants.RED, 20, 15)
         self.simulation.addSprite(self.player)
@@ -34,11 +36,3 @@ class Screen:
         label = myfont.render(str(self.simulation.koef), 1, (255,255,0))
         self.screen.blit(label, (100, 50))
 
-
-    def collisionWithPlayer(self):
-        blocks_hit_list = pygame.sprite.spritecollide(self.player, self.simulation.fluid_list, True)
-
-        # Check the list of collisions.
-        for fluid in blocks_hit_list:
-            self.score += 1
-            print(self.score)

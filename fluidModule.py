@@ -5,6 +5,11 @@ __author__ = 'Vladislove'
 
 import pygame
 
+
+def rand_float():
+    return random.randrange(0, 1000) / 1000
+
+
 class Fluid(pygame.sprite.Sprite):
     """
     This class represents the ball
@@ -30,35 +35,33 @@ class Fluid(pygame.sprite.Sprite):
         self.image.fill(color)
 
         self.rect = self.image.get_rect()
-        self.setfirstmovemant()
+        self.set_first_movement()
 
-    def setPos(self, rangeX, rangeY):
-        self.rect.x = random.randrange(rangeX)
-        self.rect.y = random.randrange(rangeY)
-
-    def randfloat(self):
-        return random.randrange(0, 1000) / 1000
-
-    def setfirstmovemant(self):
-        l = math.sqrt(self.randfloat())
-        sin0 = math.sqrt(1 - l*l)
-        phi = 2 * math.pi * self.randfloat()
-        m = sin0 * math.cos(phi)
-
-        self.change_x = l*10
-        self.change_y = m*10
-
-    def setmovement(self):
-        l = math.sqrt(self.randfloat())
-        sin0 = math.sqrt(1 - l*l)
-        phi = 2 * math.pi * self.randfloat()
-        m = sin0 * math.cos(phi)
-
-        self.change_x = m*10
-        self.change_y = l*10
+    def set_pos(self, range_y):
+        self.rect.x = random.randrange(1, 2)
+        self.rect.y = random.randrange(range_y)
 
 
-    def setBoundary(self, leftBoun, topBoun, rightBoun, downBow):
+    def set_first_movement(self):
+        alpha = random.randrange(1, 179)
+        alpha = math.radians(alpha)
+        x = 10 * math.sin(alpha)
+        y = 10 * math.cos(alpha)
+
+        self.change_x = x
+        self.change_y = y
+
+    def set_movement(self):
+        alpha = random.randrange(1, 179)
+        alpha = math.radians(alpha)
+        y = 10 * math.sin(alpha)
+        x = 10 * math.cos(alpha)
+
+        self.change_x = x
+        self.change_y = y
+
+
+    def set_boundary(self, leftBoun, topBoun, rightBoun, downBow):
         self.left_boundary = leftBoun
         self.top_boundary = topBoun
         self.right_boundary = rightBoun
@@ -71,21 +74,18 @@ class Fluid(pygame.sprite.Sprite):
         self.rect.y += self.change_y
 
         if self.rect.right >= self.right_boundary:
-            self.change_x *= -1
             return True, True
 
         if self.rect.left <= self.left_boundary:
-            self.change_x *= -1
             return True, False
 
         if self.rect.bottom >= self.bottom_boundary:
-            self.setmovement()
+            self.set_movement()
             self.change_y *= -1
             return False, False
 
         if self.rect.top <= self.top_boundary:
-            self.setmovement()
+            self.set_movement()
             return False, False
-
 
         return False, False
